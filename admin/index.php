@@ -20,7 +20,26 @@
     <link rel="stylesheet" href="../sys/bootstrap/plugins/select2/select2.min.css">
     <link rel="stylesheet" href="../sys/bootstrap/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../sys/bootstrap/dist/css/skins/_all-skins.min.css">
-	 	<script src="../sys/bootstrap/plugins/ckeditor/ckeditor.js"></script>  
+	 	<script src="../sys/bootstrap/plugins/ckeditor/ckeditor.js"></script> 
+     <style>
+    /* Style untuk tabel div */
+    .tablediv {
+      display: table;
+      width: 100%;
+    }
+    .tablediv-row {
+      display: table-row;
+    }
+    .tablediv-header {
+      display: table-header-group;
+      font-weight: bold;
+    }
+    .tablediv-cell {
+      display: table-cell;
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+  </style> 
      <style type="text/css">
 		#progress-bar1 {
 			background-color: red;
