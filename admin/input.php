@@ -24,22 +24,28 @@ elseif($_GET['aksi']=='inputkriteriadukumen'){
 echo "<script>window.location=('index.php?aksi=kriteriadukumen')</script>";
 }
 elseif ($_GET['aksi'] == 'prosesupload') {
-$keterangan = $_POST['keterangan'];
-$id_kriteriadukumen = $_POST['id_kriteriadukumen'];
-$rand = rand();
-$allowed =  array('gif', 'png', 'pdf', 'jpg', 'jpeg');
-$filename = $_FILES['foto']['name'];
+    $id_buktidokumen = $_POST["id_buktidokumen"];
+    $nama_file = $_FILES["dokumen"]["name"];
+    $ukuran_file = $_FILES["dokumen"]["size"];
+    $tmp_file = $_FILES["dokumen"]["tmp_name"];
+    $keterangan = $_POST["keterangan"];
 
-	$ext = pathinfo($filename, PATHINFO_EXTENSION);
+    // Generate nama acak untuk file
+    $nama_acak = uniqid().'_'.$nama_file;
 
-	if(!in_array($ext,$allowed) ) {
-        echo "<script>window.alert('Gagal'); window.location=('index.php?aksi=upload')</script>";
-	}else{
-		move_uploaded_file($_FILES['dokumen']['tmp_name'], '../dokumen/'.$rand.'_'.$filename);
-		$file_data = $rand.'_'.$filename;
-		mysqli_query($koneksi, "insert into uploaddokumen values (NULL,'$id_kriteriadukumen','$file_data','$keterangan')");
-		echo "<script>window.location=('index.php?aksi=upload')</script>";
-	}
+    // Pindahkan file yang diunggah ke direktori yang diinginkan
+    $tujuan_upload = "../dokumen/" . $nama_acak;
+    move_uploaded_file($tmp_file, $tujuan_upload);
+
+    // Masukkan data ke dalam tabel database
+    $query = "INSERT INTO uploaddokumen (id_buktidokumen, dokumen, keterangan) VALUES ('$id_buktidokumen', '$nama_acak', '$keterangan')";
+    $result = mysqli_query($koneksi, $query);
+
+    if($result){
+        echo "<script>window.alert('berhasil upload'); window.location=('index.php?aksi=uploaddokumen')</script>";
+    } else{
+        echo "<script>window.alert('Gagal'); window.location=('index.php?aksi=uploaddokumen')</script>";
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 elseif($_GET['aksi']=='inputmenu'){
