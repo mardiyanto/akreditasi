@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Feb 2024 pada 16.06
+-- Waktu pembuatan: 16 Feb 2024 pada 16.58
 -- Versi server: 10.1.36-MariaDB
 -- Versi PHP: 5.6.38
 
@@ -158,10 +158,20 @@ INSERT INTO `submenu` (`id_submenu`, `id_menu`, `nama_sub`, `link_sub`, `icon_su
 
 CREATE TABLE `uploaddokumen` (
   `id_uploaddokumen` int(100) NOT NULL,
-  `id_kriteriadukumen` int(100) NOT NULL,
+  `id_buktidokumen` int(100) NOT NULL,
   `dokumen` text NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `uploaddokumen`
+--
+
+INSERT INTO `uploaddokumen` (`id_uploaddokumen`, `id_buktidokumen`, `dokumen`, `keterangan`) VALUES
+(1, 1, '65cf7dde3ae95_c06b2641-da9e-4a0f-9b1c-cd10de61bd1f.pdf', 'xbxb'),
+(2, 1, '65cf7e14000ec_DAFTAR KABUPATEN KOTA SE-INDONESIA BY ANDREAS AGUNG.xlsx', 'xbxb'),
+(3, 2, '65cf8165ab581_WhatsApp Image 2024-02-16 at 20.05.21.pdf', 'cuma coba aj'),
+(4, 1, '65cf83e331d07_', '');
 
 -- --------------------------------------------------------
 
@@ -271,7 +281,7 @@ ALTER TABLE `submenu`
 -- AUTO_INCREMENT untuk tabel `uploaddokumen`
 --
 ALTER TABLE `uploaddokumen`
-  MODIFY `id_uploaddokumen` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_uploaddokumen` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
