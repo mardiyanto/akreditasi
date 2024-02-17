@@ -20,8 +20,8 @@ elseif($_GET['aksi']=='proseseditpaslon'){
 	echo "<script>window.location=('index.php?aksi=paslon')</script>";
 }
 elseif($_GET['aksi']=='proseseditbuktidokumen'){
-	mysqli_query($koneksi,"UPDATE buktidokumen SET nama_buktidokumen='$_POST[nama_buktidokumen]',id_kriteriadukumen='$_POST[id_kriteriadukumen]' WHERE id_buktidokumen='$_GET[id_buktidokumen]'");
-echo "<script>window.location=('index.php?aksi=buktidokumen')</script>";
+	mysqli_query($koneksi,"UPDATE buktidokumen SET nama_buktidokumen='$_POST[nama_buktidokumen]',id_kriteriadokumen='$_POST[id_kriteriadokumen]' WHERE id_buktidokumen='$_GET[id_buktidokumen]'");
+echo "<script>window.location=('index.php?aksi=buktidokumen&id_kriteriadokumen=$_POST[id_kriteriadokumen]')</script>";
 }
 elseif($_GET['aksi']=='proseseditkriteriadukumen'){
 	mysqli_query($koneksi,"UPDATE kriteriadukumen SET nama_kriteriadukumen='$_POST[nama_kriteriadukumen]' WHERE id_kriteriadukumen='$_GET[id_kriteriadukumen]'");

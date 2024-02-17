@@ -17,7 +17,7 @@ echo "<script>window.location=('index.php?aksi=desa')</script>";
 }
 elseif($_GET['aksi']=='inputbuktidokumen'){
 	mysqli_query($koneksi,"insert into buktidokumen (nama_buktidokumen,id_kriteriadokumen) values ('$_POST[nama_buktidokumen]','$_POST[id_kriteriadokumen]')");  
-echo "<script>window.location=('index.php?aksi=buktidokumen')</script>";
+echo "<script>window.location=('index.php?aksi=buktidokumen&id_kriteriadokumen=$_POST[id_kriteriadokumen]')</script>";
 }
 elseif($_GET['aksi']=='inputkriteriadukumen'){
 	mysqli_query($koneksi,"insert into kriteriadukumen (nama_kriteriadukumen) values ('$_POST[nama_kriteriadukumen]')");  

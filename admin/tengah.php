@@ -115,6 +115,7 @@ elseif($_GET['aksi']=='kriteriadukumen'){
           <div class='modal-header'>
             <h4 class='modal-title'>Data Dokumen</h4>
             <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            <a href='index.php?aksi=buktidokumen&id_kriteriadokumen=$t[id_kriteriadukumen]' title='Edit'>Tambah Data & upload Dokumen</a>
           </div>
 
           <!-- Bagian body modal -->
@@ -123,18 +124,21 @@ elseif($_GET['aksi']=='kriteriadukumen'){
                 <div class='tablediv-row tablediv-header'>
                     <div class='tablediv-cell'>ID</div>
                     <div class='tablediv-cell'>Nama Dokumen</div>
-                    <div class='tablediv-cell'>Keterangan</div>
-                </div>
+                </div>";
+                
+                $no=0;
+                $data=mysqli_query($koneksi," SELECT * FROM buktidokumen WHERE id_kriteriadokumen=$t[id_kriteriadukumen]");
+                while ($tj=mysqli_fetch_array($data)){	
+                $no++;
+                                                    echo"
+
                 <div class='tablediv-row'>
-                    <div class='tablediv-cell'>1</div>
-                    <div class='tablediv-cell'>File1.pdf</div>
-                    <div class='tablediv-cell'>Deskripsi file 1</div>
+                    <div class='tablediv-cell'>$no</div>
+                    <div class='tablediv-cell'>$tj[nama_buktidokumen]</div>
                 </div>
-                <div class='tablediv-row'>
-                    <div class='tablediv-cell'>2</div>
-                    <div class='tablediv-cell'>File2.docx</div>
-                    <div class='tablediv-cell'>Deskripsi file 2</div>
-                </div>
+                ";
+    }
+                                      echo"
                 <!-- Menambahkan baris data lainnya -->
                 </div>
           </div>
@@ -235,7 +239,7 @@ elseif($_GET['aksi']=='buktidokumen'){
                         ";
                 
     $no=0;
-    $tebaru=mysqli_query($koneksi," SELECT * FROM buktidokumen ");
+    $tebaru=mysqli_query($koneksi," SELECT * FROM buktidokumen WHERE id_kriteriadokumen=$_GET[id_kriteriadokumen]");
     while ($t=mysqli_fetch_array($tebaru)){	
     $no++;
                                         echo"<tr>
@@ -354,16 +358,8 @@ elseif($_GET['aksi']=='buktidokumen'){
                                                 <div class='form-group'>
                             <label>Nama buktidokumen</label>
                             <input type='text' class='form-control' name='nama_buktidokumen'/><br>
-                            <label>Pilih kecamatan</label>
-            <select class='form-control select2' style='width: 100%;' name='id_kriteriadokumen'>
-            <option value='' selected>Pilih kriteriadukumen</option>"; 
-             $sql=mysqli_query($koneksi,"SELECT * FROM kriteriadukumen");
-             while ($cx=mysqli_fetch_array($sql))
-             {
-                echo "<option value=$cx[id_kriteriadukumen]>$cx[nama_kriteriadukumen]</option>";
-             }
-                echo "
-            </select><br><br>
+                            <input type='hidden' class='form-control' value='$_GET[id_kriteriadokumen]' name='id_kriteriadokumen'/><br>
+                            
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                                 <button type='submit' class='btn btn-primary'>Save </button>
                                             </div>
@@ -393,7 +389,7 @@ elseif($_GET['aksi']=='editbuktidokumen'){
             <label>Nama buktidokumen</label>
             <input type='text' class='form-control' value='$t[nama_buktidokumen]' name='nama_buktidokumen'/><br>
             <select class='form-control select2' style='width: 100%;' name='id_kriteriadokumen'>
-            <option value='$t[id_kriteriadokumen]' selected>Pilih kriteriadukumen</option>"; 
+            <option value='$t[id_kriteriadokumen]' selected>Pilih kriteriadukumen $t[id_kriteriadokumen]</option>"; 
              $sql=mysqli_query($koneksi,"SELECT * FROM kriteriadukumen");
              while ($cx=mysqli_fetch_array($sql))
              {
