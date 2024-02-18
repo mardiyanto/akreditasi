@@ -24,6 +24,25 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="sys/bootstrap/dist/css/skins/_all-skins.min.css">
+    <style>
+    /* Style untuk tabel div */
+    .tablediv {
+      display: table;
+      width: 100%;
+    }
+    .tablediv-row {
+      display: table-row;
+    }
+    .tablediv-header {
+      display: table-header-group;
+      font-weight: bold;
+    }
+    .tablediv-cell {
+      display: table-cell;
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+  </style> 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,7 +98,7 @@
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-              APLIKASI HITUNG CEPAT 
+              APLIKASI AKREDITASI LAMEMBA
               <small>V 1.0</small>
             </h1>
             <ol class="breadcrumb">
@@ -91,90 +110,140 @@
 
           <!-- Main content -->
           <section class="content">
-			<div class="row">
- <?php
- // Query SQL dengan JOIN dan GROUP BY
-$sql = "SELECT p.id_paslon, p.nama_paslon, SUM(s.suara_sah) AS total_suara_sah, SUM(s.suara_rusak) AS total_suara_rusak
-FROM paslon p
-JOIN suara s ON p.id_paslon = s.id_paslon
-GROUP BY p.id_paslon";
+          <?php
+          echo"<div class='row'>
+                    <div class='col-lg-12'>
+                        <div class='panel panel-default'>
+                            <div class='panel-heading'>INFORMASI 
+                            </div>
+                            <div class='panel-body'>	
+              
+                                   <div class='table-responsive'>		
+         <table id='example1' class='table table-bordered table-striped'>
+                                        <thead>
+                                            <tr>
+                                            <th>No</th>
+                                                <th>Nama kriteriadukumen</th>
+                                                <th>Bukti & Dokumen</th>
+	  
+                                          </tr></thead>
+                        <tbody>
+                        ";
+                
+    $no=0;
+    $tebaru=mysqli_query($koneksi," SELECT * FROM kriteriadukumen ");
+    while ($t=mysqli_fetch_array($tebaru)){	
+    $no++;
+                                        echo"<tr>
+                                            <td>$no</td>
+                                                <td>$t[nama_kriteriadukumen]</td>
+                                                <td><button class='btn btn-warning btn-sm' data-toggle='modal' data-target='#myModal$t[id_kriteriadukumen]'>Bukti</button></td>
+                                
+	
+                <!-- Modal -->
+    <div class='modal fade' id='myModal$t[id_kriteriadukumen]'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <!-- Bagian header modal -->
+          <div class='modal-header'>
+            <h4 class='modal-title'>Data Dokumen</h4>
+            <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        
+          </div>
 
-$result = $koneksi->query($sql);
+          <!-- Bagian body modal -->
+          <div class='modal-body'>
+                <div class='tablediv'>
+                <div class='tablediv-row tablediv-header'>
+                    <div class='tablediv-cell'>ID</div>
+                    <div class='tablediv-cell'>Nama Dokumen</div>
+                    <div class='tablediv-cell'>litah</div>
+                </div>";
+                
+                $xo=0;
+                $data=mysqli_query($koneksi," SELECT * FROM buktidokumen WHERE id_kriteriadokumen=$t[id_kriteriadukumen]");
+                while ($tj=mysqli_fetch_array($data)){	
+                $xo++;
+                                                    echo"
 
-if ($result->num_rows > 0) { 
-// Menampilkan data hasil GROUP BY
-while ($row = $result->fetch_assoc()) { ?>
-        <div class="col-md-4">
-              <!-- Widget: user widget style 1 -->
-              <div class="box box-widget widget-user-2">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-yellow">
-                  <div class="widget-user-image">
-                    <img class="img-circle" src="sys/pileg.jpg" alt="User Avatar">
-                  </div><!-- /.widget-user-image -->
-                  <h3 class="widget-user-username"><?=$row["nama_paslon"]?></h3>
-                  <h5 class="widget-user-desc"><?php echo"$k_k[nama_app]";?> <?php echo"$k_k[alias]";?></h5>
+                <div class='tablediv-row'>
+                    <div class='tablediv-cell'>$xo</div>
+                    <div class='tablediv-cell'>$tj[nama_buktidokumen]</div>
+                    <div class='tablediv-cell'>
+           
+                    <button class='btn btn-warning btn-sm' data-toggle='modal' data-target='#ui$tj[id_buktidokumen]'>Lihat</button>
+                    </div>
                 </div>
-                <div class="box-footer no-padding">
-                  <ul class="nav nav-stacked">
-                    <li><a href="#">Total Suara Sah <span class="pull-right badge bg-blue"><?=$row["total_suara_sah"]?></span></a></li>
-                    <li><a href="#">Total Suara Tidak Sah <span class="pull-right badge bg-aqua"><?=$row["total_suara_rusak"]?></span></a></li>
-
-                  </ul>
+                <!-- Bagian body modal 2 -->
+                <div class='col-lg-12'>
+                               <div class='modal fade' id='ui$tj[id_buktidokumen]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                           
+                                            <h4 class='modal-title' id='H3'>Lihat Data upload </h4>
+                                        </div>
+                                        <!-- Bagian body modal -->
+          <div class='modal-body'>
+                <div class='tablediv'>
+                <div class='tablediv-row tablediv-header'>
+                    <div class='tablediv-cell'>ID</div>
+                    <div class='tablediv-cell'>Nama Dokumen</div>
+                    
                 </div>
-              </div><!-- /.widget-user -->
-            </div><!-- /.col -->
-            <?php }
-} else { ?>
- <div class="col-md-12">
-              <div class="box box-success">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Removable</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div><!-- /.box-tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                  DATA PASLON BELUM DI INPUT DI SISTEM
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-<?php } ?>
-  </div>
+               
+                ";
+			
+                $do=0;
+                $teb=mysqli_query($koneksi," SELECT * FROM uploaddokumen WHERE id_buktidokumen=$tj[id_buktidokumen]");
+                while ($tx=mysqli_fetch_array($teb)){	
+                $do++;
+                                                    echo" <div class='tablediv-row'>
+                                                           <div class='tablediv-cell'>$do</div>
+                    <div class='tablediv-cell'><a href='../dokumen/$tx[dokumen]' target='_blank'>$tx[keterangan]</a></div>
+                    </div>";
+                }
+                                                         echo"
+                
+                
+                </div>
+          </div>
+         
+                                    </div>
+                                 </div>
+                                </div>
+                        </div>	
+                        <!-- tutup body modal 2 -->
+                ";
+                
+    }
+                                      echo"
+                <!-- Menambahkan baris data lainnya -->
+                </div>
+          </div>
+         
 
+          <!-- Bagian footer modal -->
+          <div class='modal-footer'>
+            <button type='button' class='btn btn-danger' data-dismiss='modal'>Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+                                            </tr>";
+    }
+                                      echo"  </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>		
+        
+          ";			
     
-          <div class="row">
-            <div class="col-md-12">
-              <!-- AREA CHART -->
-                <div class="box box-success">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Grafik data paslon</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body chart-responsive">
-                  <div class="chart" id="bar-chart" style="height: 300px;"></div>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col (LEFT) -->
-            <div class="col-md-12">
-			 <!-- DONUT CHART -->
-              <div class="box box-danger">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Grafik data paslon</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="box-body chart-responsive">
-                  <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col (RIGHT) -->
-          </div><!-- /.row -->
+    ////////////////input 		
+     ?>
           </section><!-- /.content -->
         </div><!-- /.container -->
       </div><!-- /.content-wrapper -->

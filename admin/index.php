@@ -40,45 +40,7 @@
       border: 1px solid #ccc;
     }
   </style> 
-     <style type="text/css">
-		#progress-bar1 {
-			background-color: red;
-			width:0%;
-			height:20px;
-			-webkit-transition: width .3s;
-			-moz-transition: width .3s;
-			transition: width .3s;
-		}
-    #progress-bar {
-      float: left;
-      width: 0;
-      height: 100%;
-      font-size: 12px;
-      line-height: 20px;
-      color: #fff;
-      text-align: center;
-      background-color: #337ab7;
-      -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-              box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-      -webkit-transition: width .6s ease;
-          -o-transition: width .6s ease;
-              transition: width .6s ease;
-              background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-      background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-      background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-      -webkit-background-size: 40px 40px;
-              background-size: 40px 40px;
-              -webkit-animation: progress-bar-stripes 2s linear infinite;
-       -o-animation: progress-bar-stripes 2s linear infinite;
-          animation: progress-bar-stripes 2s linear infinite;
-		}
-		#progress-div {
-			border:#ccc 1px solid;
-			margin:30px 0px;
-			border-radius:4px;
-			text-align:center;
-		}
-		</style>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -95,7 +57,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>Q</b> C</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">QUICK COUNT</span>
+          <span class="logo-lg">AKREDITASI</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -109,7 +71,7 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <img src="../foto/logo.png" class="user-image" alt="User Image">
-                  <span class="hidden-xs">QUICK COUNT</span>
+                  <span class="hidden-xs">AKREDITASI</span>
                 </a>
                
               </li>
@@ -265,5 +227,7 @@
         });
       });
     </script>
+
+
   </body>
 </html>

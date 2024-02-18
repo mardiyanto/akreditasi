@@ -14,30 +14,8 @@ echo"
 			</div>
                    </div>
 </div>";
-include "grafik.php";
-echo"<div class='row'>
-                    <div class='col-xs-12'>
-              <div class='panel panel-primary'>
-			    <div class='box-header'>
-				   <h3 class='box-title'>INFORMASI</h3>
-                </div>
-                <div class='box-header'>
-				</div>
-     <div class='box-body'>";
-     $main=mysqli_query($koneksi,"SELECT * FROM submenu");
+echo"
 
-     while($r=mysqli_fetch_array($main)){           
-     echo"<a href='$r[link_sub]' class='btn btn-app'>
-                    <span class='badge bg-yellow'>3</span>
-                    <i class='fa $r[icon_sub] fa-5x'></i> $r[nama_sub]
-                  </a>";
-                }           
-                echo "
-
-            </div>
-			</div>
- </div>
-			</div>
 ";
 }
 elseif($_GET['aksi']=='ikon'){
@@ -124,19 +102,65 @@ elseif($_GET['aksi']=='kriteriadukumen'){
                 <div class='tablediv-row tablediv-header'>
                     <div class='tablediv-cell'>ID</div>
                     <div class='tablediv-cell'>Nama Dokumen</div>
+                    <div class='tablediv-cell'>Upload</div>
                 </div>";
                 
-                $no=0;
+                $xo=0;
                 $data=mysqli_query($koneksi," SELECT * FROM buktidokumen WHERE id_kriteriadokumen=$t[id_kriteriadukumen]");
                 while ($tj=mysqli_fetch_array($data)){	
-                $no++;
+                $xo++;
                                                     echo"
 
                 <div class='tablediv-row'>
-                    <div class='tablediv-cell'>$no</div>
+                    <div class='tablediv-cell'>$xo</div>
                     <div class='tablediv-cell'>$tj[nama_buktidokumen]</div>
+                    <div class='tablediv-cell'>
+                    <a class='btn btn-info btn-sm' href='upload.php?aksi=uploaddokumen&id_buktidokumen=$tj[id_buktidokumen]'><i class='fa fa-cloud-upload'></i>upload</a>
+                    <button class='btn btn-warning btn-sm' data-toggle='modal' data-target='#ui$tj[id_buktidokumen]'>Lihat</button>
+                    </div>
                 </div>
+                <!-- Bagian body modal 2 -->
+                <div class='col-lg-12'>
+                               <div class='modal fade' id='ui$tj[id_buktidokumen]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                           
+                                            <h4 class='modal-title' id='H3'>Lihat Data upload </h4>
+                                        </div>
+                                        <!-- Bagian body modal -->
+          <div class='modal-body'>
+                <div class='tablediv'>
+                <div class='tablediv-row tablediv-header'>
+                    <div class='tablediv-cell'>ID</div>
+                    <div class='tablediv-cell'>Nama Dokumen</div>
+                    
+                </div>
+               
                 ";
+			
+                $do=0;
+                $teb=mysqli_query($koneksi," SELECT * FROM uploaddokumen WHERE id_buktidokumen=$tj[id_buktidokumen]");
+                while ($tx=mysqli_fetch_array($teb)){	
+                $do++;
+                                                    echo" <div class='tablediv-row'>
+                                                           <div class='tablediv-cell'>$do</div>
+                    <div class='tablediv-cell'><a href='../dokumen/$tx[dokumen]' target='_blank'>$tx[keterangan]</a></div>
+                    </div>";
+                }
+                                                         echo"
+                
+                
+                </div>
+          </div>
+         
+                                    </div>
+                                 </div>
+                                </div>
+                        </div>	
+                        <!-- tutup body modal 2 -->
+                ";
+                
     }
                                       echo"
                 <!-- Menambahkan baris data lainnya -->
@@ -225,7 +249,9 @@ elseif($_GET['aksi']=='buktidokumen'){
                             <div class='panel-body'>	
                 <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
                                     Tambah Data
-                                </button><br><br>
+                                </button>
+                                <a href='index.php?aksi=kriteriadukumen' class='btn btn-info' ><i class='fa  fa-arrow-circle-left'></i>Kembali</a><br><br>
+                                <br><br>
                                    <div class='table-responsive'>		
          <table id='example1' class='table table-bordered table-striped'>
                                         <thead>
@@ -238,14 +264,15 @@ elseif($_GET['aksi']=='buktidokumen'){
                         <tbody>
                         ";
                 
-    $no=0;
+    $xo=0;
     $tebaru=mysqli_query($koneksi," SELECT * FROM buktidokumen WHERE id_kriteriadokumen=$_GET[id_kriteriadokumen]");
     while ($t=mysqli_fetch_array($tebaru)){	
-    $no++;
+    $xo++;
                                         echo"<tr>
-                                            <td>$no</td>
+                                            <td>$xo</td>
                                                 <td>$t[nama_buktidokumen]</td>
-                                <td> <button class='btn btn-info' data-toggle='modal' data-target='#uiModal$t[id_buktidokumen]'><i class='fa fa-cloud-upload'></i>upload</button>
+                                <td> <a href='upload.php?aksi=uploaddokumen&id_buktidokumen=$t[id_buktidokumen]&id_kriteriadokumen=$t[id_kriteriadokumen]' class='btn btn-info' ><i class='fa fa-cloud-upload'></i>upload</a>
+                                <button class='btn btn-info' data-toggle='modal' data-target='#ui$t[id_buktidokumen]'><i class='fa fa-eye'></i>Lihat Data</button>
                                <div class='btn-group'>
                                <button type='button' class='btn btn-info'>aksi</button>
                           <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
@@ -297,7 +324,166 @@ elseif($_GET['aksi']=='buktidokumen'){
                                     <div class='modal-content'>
                                         <div class='modal-header'>
                                             <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                                            <h4 class='modal-title' id='H3'><a href='index.php?aksi=uploaddokumen&id_buktidokumen=$t[id_buktidokumen]'>Lihat Data upload $t[id_buktidokumen]</a></h4>
+                                            <h4 class='modal-title' id='H3'>Lihat Data upload </h4>
+                                        </div>
+                                        <!-- Bagian body modal -->
+          <div class='modal-body'>
+                <div class='tablediv'>
+                <div class='tablediv-row tablediv-header'>
+                    <div class='tablediv-cell'>ID</div>
+                    <div class='tablediv-cell'>Nama Dokumen</div>
+                    
+                </div>
+               
+                ";
+			
+                $do=0;
+                $teb=mysqli_query($koneksi," SELECT * FROM uploaddokumen WHERE id_buktidokumen=$t[id_buktidokumen]");
+                while ($tx=mysqli_fetch_array($teb)){	
+                $do++;
+                                                    echo" <div class='tablediv-row'>
+                                                           <div class='tablediv-cell'>$do</div>
+                    <div class='tablediv-cell'><a href='../dokumen/$tx[dokumen]' target='_blank'>$tx[keterangan]</a></div>
+                    </div>";
+                }
+                                                         echo"
+                
+                
+                </div>
+          </div>
+         
+                                    </div>
+                                 </div>
+                                </div>
+                        </div>		
+
+                                            </tr>";
+    }
+                                      echo"  </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>		
+        
+          ";			
+    
+    ////////////////input 		
+    
+    echo"			
+    <div class='col-lg-12'>
+                            <div class='modal fade' id='uiModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                    <div class='modal-dialog'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                                <h4 class='modal-title' id='H3'>Input Data </h4>
+                                            </div>
+                                            <div class='modal-body'>
+                                               <form role='form' method='post' action='input.php?aksi=inputbuktidokumen'>
+                                                <div class='form-group'>
+                            <label>Nama buktidokumen</label>
+                            <input type='text' class='form-control' name='nama_buktidokumen'/><br>
+                            <input type='hidden' class='form-control' value='$_GET[id_kriteriadokumen]' name='id_kriteriadokumen'/><br>
+                            
+                                                <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                                <button type='submit' class='btn btn-primary'>Save </button>
+                                            </div>
+                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                </div>			
+    "; 
+}
+elseif($_GET['aksi']=='semuabuktidokumen'){
+    echo"<div class='row'>
+                    <div class='col-lg-12'>
+                        <div class='panel panel-default'>
+                            <div class='panel-heading'>INFORMASI 
+                            </div>
+                            <div class='panel-body'>	
+                <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
+                                    Tambah Data
+                                </button><br><br>
+                                   <div class='table-responsive'>		
+         <table id='example1' class='table table-bordered table-striped'>
+                                        <thead>
+                                            <tr>
+                                            <th>No</th>
+                                                <th>Nama buktidokumen</th>
+                                                <th>aksi</th>	
+                                               	  
+                                          </tr></thead>
+                        <tbody>
+                        ";
+                
+    $ce=0;
+    $tebaru=mysqli_query($koneksi," SELECT * FROM buktidokumen");
+    while ($t=mysqli_fetch_array($tebaru)){	
+    $ce++;
+                                        echo"<tr>
+                                            <td>$ce</td>
+                                                <td>$t[nama_buktidokumen]</td>
+                                <td> <a href='upload.php?aksi=uploaddokumen&id_buktidokumen=$t[id_buktidokumen]' class='btn btn-info' ><i class='fa fa-cloud-upload'></i>upload</a>
+                               <div class='btn-group'>
+                               <button type='button' class='btn btn-info'>aksi</button>
+                          <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
+                            <span class='caret'></span>
+                            <span class='sr-only'>Toggle Dropdown</span>
+                          </button>
+                          <ul class='dropdown-menu' role='menu'>
+                            <li><a href='index.php?aksi=editbuktidokumen&id_buktidokumen=$t[id_buktidokumen]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
+                            <li><a href='hapus.php?aksi=hapusbuktidokumen&id_buktidokumen=$t[id_buktidokumen]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_buktidokumen] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
+                            </ul>
+                        </div></td>
+                        
+                        <div class='col-lg-12'>
+                               <div class='modal fade' id='uiModal$t[id_buktidokumen]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                            <button class='btn btn-info' data-toggle='modal' data-target='#ui$t[id_buktidokumen]'><i class='fa fa-cloud-upload'></i>Lihat</button>
+
+                                            <h4 class='modal-title' id='H3'>Data upload $t[id_buktidokumen]</h4>
+                                        </div>
+                                        <div class='modal-body'>
+                                        <form action='input.php?aksi=prosesupload' method='post' enctype='multipart/form-data'>
+                                   
+                                        <input type='hidden' class='form-control' name='id_buktidokumen' value='$t[id_buktidokumen]' required='required'>
+                                     
+                                        <div class='form-group'>
+                                          <label>Nama Dokumen</label>
+                                          <input type='text' class='form-control' name='keterangan'>
+                                        </div>
+                                        <div class='form-group'>
+                                        <label>File Dokumen</label>
+                                        <input type='file' name='dokumen' id='fileInput'>
+                                        <div class='progress' style='display: none;'>
+                                            <div class='progress-bar' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'></div>
+                                        </div>
+                                    </div>
+                                    
+                                        <div class='form-group'>
+                                          <input type='submit' class='btn btn-sm btn-primary' value='Simpan'>
+                                        </div>
+                                      </form>
+                                         </div>
+                                    </div>
+                                 </div>
+                                </div>
+                        </div>		
+
+                        <div class='col-lg-12'>
+                               <div class='modal fade' id='ui$t[id_buktidokumen]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                            <h4 class='modal-title' id='H3'>Lihat Data upload</h4>
                                         </div>
                                         <!-- Bagian body modal -->
           <div class='modal-body'>
@@ -358,7 +544,16 @@ elseif($_GET['aksi']=='buktidokumen'){
                                                 <div class='form-group'>
                             <label>Nama buktidokumen</label>
                             <input type='text' class='form-control' name='nama_buktidokumen'/><br>
-                            <input type='hidden' class='form-control' value='$_GET[id_kriteriadokumen]' name='id_kriteriadokumen'/><br>
+                            <label>Pilih Kriteria Dokumen</label>
+                            <select class='form-control select2' style='width: 100%;' name='id_kriteriadokumen'>
+                            <option value='1' selected>Pilih kriteriadukumen </option>"; 
+                            $sql=mysqli_query($koneksi,"SELECT * FROM kriteriadukumen");
+                            while ($cx=mysqli_fetch_array($sql))
+                            {
+                                echo "<option value=$cx[id_kriteriadukumen]>$cx[nama_kriteriadukumen]</option>";
+                            }
+                                echo "
+                            </select><br><br>
                             
                                                 <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                                 <button type='submit' class='btn btn-primary'>Save </button>
@@ -370,8 +565,7 @@ elseif($_GET['aksi']=='buktidokumen'){
                         </div>
                 </div>			
     "; 
-}
-     
+}     
 /////////////////////////////////////////////////////////////////////////////////////////////////
     
 elseif($_GET['aksi']=='editbuktidokumen'){
@@ -388,6 +582,7 @@ elseif($_GET['aksi']=='editbuktidokumen'){
            <div class='form-grup'>
             <label>Nama buktidokumen</label>
             <input type='text' class='form-control' value='$t[nama_buktidokumen]' name='nama_buktidokumen'/><br>
+            <label>Pilih Kriteria Dokumen</label>
             <select class='form-control select2' style='width: 100%;' name='id_kriteriadokumen'>
             <option value='$t[id_kriteriadokumen]' selected>Pilih kriteriadukumen $t[id_kriteriadokumen]</option>"; 
              $sql=mysqli_query($koneksi,"SELECT * FROM kriteriadukumen");
@@ -411,7 +606,7 @@ echo"<div class='row'>
                         <div class='panel-heading'>INFORMASI 
                         </div>
                         <div class='panel-body'>	
-
+                        <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'><i class='fa fa-cloud-upload'></i>upload</button>
                            	<div class='table-responsive'>		
 	 <table id='example1' class='table table-bordered table-striped'>
                                     <thead>
@@ -437,18 +632,58 @@ $no++;
                       </button>
                       <ul class='dropdown-menu' role='menu'>
                         <li><a href='index.php?aksi=editadmin&user_id=$t[user_id]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-						<li><a href='hapus.php?aksi=hapusadmin&user_id=$t[user_id]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[user_username] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
+						<li><a href='hapus.php?aksi=hapusbuktidokumen&id_uploaddokumen=$t[id_uploaddokumen]&id_buktidokumen=$t[id_buktidokumen]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[user_username] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
                         </ul>
                     </div></td>
                                         </tr>
-                                    </tbody>";
+                                    </tbody>
+                                    
+                                                             
+                                    ";
 }
                                 echo"</table>
                             </div>
                         </div>
                     </div>
                 </div>
-               </div>";			 
+               </div>
+               <div class='col-lg-12'>
+                                    <div class='modal fade' id='uiModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                                    <h4 class='modal-title' id='H3'>Data upload $_GET[id_buktidokumen]</h4>
+                                                </div>
+                                                <div class='modal-body'>
+                                                
+                                                    <form id='uploadForm' action='input.php?aksi=prosesupload' method='post' enctype='multipart/form-data'>
+                                                        <input type='hidden' class='form-control' name='id_buktidokumen' value='$_GET[id_buktidokumen]' required='required'>
+                                                        <div class='form-group'>
+                                                            <label>Nama Dokumen</label>
+                                                            <input type='text' class='form-control' name='keterangan'>
+                                                        </div>
+                                                        <div class='form-group'>
+                                                            <label>File Dokumen</label>
+                                                            <input type='file' name='dokumen' id='fileInput'>
+                                                        </div>
+                                                        <div class='form-group'>
+                                                        <input type='submit' type='button' class='btn btn-primary' value='Upload'>
+                                                    </div>
+                                                    <div class='mb-3'>
+                <progress id='progressBar' value='0' max='100' class='form-control'></progress>
+            </div>
+            <div id='status' class='mb-3'></div>
+                                                </form>
+                                               
+                                                <div id='uploadResult'></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+               
+               ";			 
 }
 elseif($_GET['aksi']=='lihatuploaddokumen'){
     echo"<div class='row'>
@@ -535,6 +770,7 @@ elseif($_GET['aksi']=='lihatuploaddokumen'){
                 </div>			
     "; 
     }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 elseif($_GET['aksi']=='kecamatan'){
     echo"

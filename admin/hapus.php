@@ -10,6 +10,39 @@ if($_GET['aksi']=='hapuspaslon'){
 mysqli_query($koneksi,"DELETE FROM paslon  WHERE id_paslon='$_GET[id_paslon]'");
 echo "<script>window.location=('index.php?aksi=paslon')</script>";
 }
+elseif ($_GET['aksi'] == 'hapusbuktidokumen') {
+      $id_uploaddokumen_hapus = $_GET['id_uploaddokumen'];
+      $id_buktidokumen_hapus = $_GET['id_buktidokumen'];  
+      // Ambil informasi file terkait
+      $query_select = "SELECT dokumen FROM uploaddokumen WHERE id_uploaddokumen = '$id_uploaddokumen_hapus'";
+      $result_select = mysqli_query($koneksi, $query_select);
+
+      if ($result_select) {
+          $row = mysqli_fetch_assoc($result_select);
+          $nama_file_hapus = $row['dokumen'];
+          $path_file_hapus = "../dokumen/" . $nama_file_hapus;
+
+          // Hapus file dari direktori
+          if (unlink($path_file_hapus)) {
+              // Hapus data dari tabel database
+              $query_delete = "DELETE FROM uploaddokumen WHERE id_uploaddokumen = '$id_uploaddokumen_hapus'";
+              $result_delete = mysqli_query($koneksi, $query_delete);
+
+              if ($result_delete) {
+                  echo "<script>window.alert('Berhasil hapus'); window.location=('upload.php?aksi=uploaddokumen&id_buktidokumen=$id_buktidokumen_hapus')</script>";
+              } else {
+                  echo "<script>window.alert('Gagal menghapus data dari database'); window.location=('upload.php?aksi=uploaddokumen&id_buktidokumen=$id_buktidokumen_hapus')</script>";
+              }
+          } else {
+              echo "<script>window.alert('Gagal menghapus file tidak terdapat di database'); window.location=('upload.php?aksi=uploaddokumen&id_buktidokumen=$id_buktidokumen_hapus')</script>";
+          }
+      } else {
+          echo "<script>window.alert('Gagal mengambil informasi file'); window.location=('upload.php?aksi=uploaddokumen&id_buktidokumen=$id_buktidokumen_hapus')</script>";
+      }
+
+}
+
+
 elseif($_GET['aksi']=='hapuskecamatan'){
   mysqli_query($koneksi,"DELETE FROM kecamatan  WHERE id_kecamatan='$_GET[id_kecamatan]'");
   echo "<script>window.location=('index.php?aksi=kecamatan')</script>";
