@@ -3,20 +3,119 @@
 if($_GET['aksi']=='home'){
 echo"
  <div class='row'>
-                   <div class='col-lg-12'>
-			<div class='panel panel-default'>
-                            <div class='panel-heading'>
-                           Sambutan
-                            </div>
-                            <div class='panel-body'>                         
-				<p>Selamat Datang Di halaman Admin, Silahkan Pilih menu untuk pengaturan data yang di butuhkan guna mendapatkan hasil yang maksimal sesuai keinginan.</p>
-                            </div>
-			</div>
-                   </div>
-</div>";
-echo"
+ ";
+                
+ $no=0;
+ $tebaru=mysqli_query($koneksi," SELECT * FROM kriteriadukumen ");
+ while ($t=mysqli_fetch_array($tebaru)){	
+ $no++;
+                                     echo"
+    <div class='col-lg-3'>
+        <div class='panel panel-default'>
+            <div class='panel-heading'>
+            Kriteria Penilaian
+            </div>
+                <div class='panel-body'>                         
+                  <p>$t[nama_kriteriadukumen]</p><br>
+                  <button class='btn btn-warning btn-sm' data-toggle='modal' data-target='#myModal$t[id_kriteriadukumen]'>Bukti</button>
+                </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class='modal fade' id='myModal$t[id_kriteriadukumen]'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <!-- Bagian header modal -->
+          <div class='modal-header'>
+            <h4 class='modal-title'>Data Dokumen</h4>
+            <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            <a href='index.php?aksi=buktidokumen&id_kriteriadokumen=$t[id_kriteriadukumen]' title='Edit'>Tambah Data & upload Dokumen</a>
+          </div>
 
-";
+          <!-- Bagian body modal -->
+          <div class='modal-body'>
+                <div class='tablediv'>
+                <div class='tablediv-row tablediv-header'>
+                    <div class='tablediv-cell'>ID</div>
+                    <div class='tablediv-cell'>Nama Dokumen</div>
+                    <div class='tablediv-cell'>Upload</div>
+                </div>";
+                
+                $xo=0;
+                $data=mysqli_query($koneksi," SELECT * FROM buktidokumen WHERE id_kriteriadokumen=$t[id_kriteriadukumen]");
+                while ($tj=mysqli_fetch_array($data)){	
+                $xo++;
+                                                    echo"
+
+                <div class='tablediv-row'>
+                    <div class='tablediv-cell'>$xo</div>
+                    <div class='tablediv-cell'>$tj[nama_buktidokumen]</div>
+                    <div class='tablediv-cell'>
+                    <a class='btn btn-info btn-sm' href='upload.php?aksi=uploaddokumen&id_buktidokumen=$tj[id_buktidokumen]'><i class='fa fa-cloud-upload'></i>upload</a>
+                    <button class='btn btn-warning btn-sm' data-toggle='modal' data-target='#ui$tj[id_buktidokumen]'>Lihat</button>
+                    </div>
+                </div>
+                <!-- Bagian body modal 2 -->
+                <div class='col-lg-12'>
+                               <div class='modal fade' id='ui$tj[id_buktidokumen]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                           
+                                            <h4 class='modal-title' id='H3'>Lihat Data upload </h4>
+                                        </div>
+                                        <!-- Bagian body modal -->
+          <div class='modal-body'>
+                <div class='tablediv'>
+                <div class='tablediv-row tablediv-header'>
+                    <div class='tablediv-cell'>ID</div>
+                    <div class='tablediv-cell'>Nama Dokumen</div>
+                    
+                </div>
+               
+                ";
+			
+                $do=0;
+                $teb=mysqli_query($koneksi," SELECT * FROM uploaddokumen WHERE id_buktidokumen=$tj[id_buktidokumen]");
+                while ($tx=mysqli_fetch_array($teb)){	
+                $do++;
+                                                    echo" <div class='tablediv-row'>
+                                                           <div class='tablediv-cell'>$do</div>
+                    <div class='tablediv-cell'><a href='../dokumen/$tx[dokumen]' target='_blank'>$tx[keterangan]</a></div>
+                    </div>";
+                }
+                                                         echo"
+                
+                
+                </div>
+          </div>
+         
+                                    </div>
+                                 </div>
+                                </div>
+                        </div>	
+                        <!-- tutup body modal 2 -->
+                ";
+                
+    }
+                                      echo"
+                <!-- Menambahkan baris data lainnya -->
+                </div>
+          </div>
+         
+
+          <!-- Bagian footer modal -->
+          <div class='modal-footer'>
+            <button type='button' class='btn btn-danger' data-dismiss='modal'>Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    ";
+}
+                                  echo"
+</div>";
 }
 elseif($_GET['aksi']=='ikon'){
 include "../ikon.php";

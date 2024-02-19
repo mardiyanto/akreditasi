@@ -58,7 +58,7 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="index.php" class="navbar-brand"><b>Admin</b>LTE</a>
+              <a href="index.php" class="navbar-brand"><b>FEBI</b> UIN RADEN INTAN</a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>
@@ -157,7 +157,7 @@
                 <div class='tablediv-row tablediv-header'>
                     <div class='tablediv-cell'>ID</div>
                     <div class='tablediv-cell'>Nama Dokumen</div>
-                    <div class='tablediv-cell'>litah</div>
+                    <div class='tablediv-cell'>lihat</div>
                 </div>";
                 
                 $xo=0;
@@ -250,9 +250,9 @@
       <footer class="main-footer">
         <div class="container">
           <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.0
+            <b>Version</b> 1.0
           </div>
-          <strong>Copyright &copy; 2014-2015 <a href="http://sukait.com">mardybest</a>.</strong> All rights reserved.
+          <strong>Copyright &copy; <?php echo date('Y'); ?>  <a href="#">FEBI UIN RANDEN INTAN LAMPUNG</a>.</strong>  All rights reserved.
         </div><!-- /.container -->
       </footer>
     </div><!-- ./wrapper -->

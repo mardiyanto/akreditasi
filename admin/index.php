@@ -111,7 +111,7 @@
         <section class="content-header">
           <h1>
             Dashboard
-            <small>Control panel kua</small>
+            <small>Control panel</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="index.aspx"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -127,9 +127,9 @@
 <!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
+          <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="#">Almsaeed Studio / Web Progremer (<?php echo"$k_k[akabest]";?> )</a>.</strong>  All rights reserved.
+        <strong>Copyright &copy; <?php echo date('Y'); ?>  <a href="#">FEBI UIN RANDEN INTAN LAMPUNG</a>.</strong>  All rights reserved.
       </footer>
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
