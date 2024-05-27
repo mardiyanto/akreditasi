@@ -129,7 +129,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; <?php echo date('Y'); ?>  <a href="#">FEBI UIN RANDEN INTAN LAMPUNG</a>.</strong>  All rights reserved.
+        <strong>Copyright &copy; <?php echo date('Y'); ?>  <a href="#"><?php echo"$k_k[nama]";?></a>.</strong>  All rights reserved.
       </footer>
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->

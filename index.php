@@ -58,7 +58,7 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="index.php" class="navbar-brand"><b>FEBI</b> UIN RADEN INTAN</a>
+              <a href="index.php" class="navbar-brand"><?php echo"$k_k[alias]"; ?></a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>
@@ -252,7 +252,7 @@
           <div class="pull-right hidden-xs">
             <b>Version</b> 1.0
           </div>
-          <strong>Copyright &copy; <?php echo date('Y'); ?>  <a href="#">FEBI UIN RANDEN INTAN LAMPUNG</a>.</strong>  All rights reserved.
+          <strong>Copyright &copy; <?php echo date('Y'); ?>  <a href="#"><?php echo"$k_k[alias]"; ?></a>.</strong>  All rights reserved.
         </div><!-- /.container -->
       </footer>
     </div><!-- ./wrapper -->
